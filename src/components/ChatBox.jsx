@@ -3,22 +3,46 @@ import userImage from '../assets/user.png'
 import '../style.css'
 
 export default function ChatBox({ loading, type, text }) {
+	const renderImage = (src, alt, width) => {
+		return (
+			<img
+				src={src}
+				alt={alt}
+				style={{
+					width,
+					height: 'min-content',
+				}}
+			/>
+		)
+	}
+
+	const renderAiImage = () => {
+		if (type === 'user') return null
+		return renderImage(aiImage, 'ai-image', '10%')
+	}
+
+	const renderUserImage = () => {
+		if (type === 'ai') return null
+		return renderImage(userImage, 'user-image', '10%')
+	}
+
 	return (
 		<div className={type === 'user' ? 'user-chat-box' : 'ai-chat-box'}>
-			<img
-				src={type === 'user' ? userImage : aiImage}
-				alt={`${type}-image`}
-				width={type === 'user' ? '8%' : '10%'}
-			/>
+			{renderAiImage()}
 			<div
 				className={type === 'user' ? 'user-chat-area' : 'ai-chat-area'}
 			>
 				{type === 'ai' && loading ? (
-					<span className="loader"></span>
+					<div className="loader">
+						<div />
+						<div />
+						<div />
+					</div>
 				) : (
 					text
 				)}
 			</div>
+			{renderUserImage()}
 		</div>
 	)
 }
