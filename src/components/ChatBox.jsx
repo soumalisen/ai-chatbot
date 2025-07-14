@@ -1,7 +1,8 @@
 import aiImage from '../assets/ai.png'
 import userImage from '../assets/user.png'
+import '../style.css'
 
-export default function ChatBox({ type, text }) {
+export default function ChatBox({ loading, type, text }) {
 	return (
 		<div className={type === 'user' ? 'user-chat-box' : 'ai-chat-box'}>
 			<img
@@ -12,7 +13,11 @@ export default function ChatBox({ type, text }) {
 			<div
 				className={type === 'user' ? 'user-chat-area' : 'ai-chat-area'}
 			>
-				{text || (type === 'ai' && <span className="loader"></span>)}
+				{type === 'ai' && loading ? (
+					<span className="loader"></span>
+				) : (
+					text
+				)}
 			</div>
 		</div>
 	)
